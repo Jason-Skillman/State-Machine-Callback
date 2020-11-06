@@ -35,6 +35,8 @@ public class Driver : MonoBehaviour, IStateMachineCallback {
 		}
 	}
 
+	public void OnAnimationUpdate(AnimatorStateInfo stateInfo, int layerIndex) { }
+
 	public void OnAnimationEnd(AnimatorStateInfo stateInfo, int layerIndex) {
 		//Use stateInfo to get the correct animation state name
 		if(stateInfo.IsName("TurnOn")) {
@@ -44,7 +46,7 @@ public class Driver : MonoBehaviour, IStateMachineCallback {
 			meshRenderer.material = matOn;
 		} else if(stateInfo.IsName("TurnOff")) {
 			Debug.Log("Turn off end callback");
-			
+
 			//Use the callback to turn the sphere white when the animation has stopped playing
 			meshRenderer.material = matOff;
 		}
