@@ -2,7 +2,7 @@
   "name": "com.jasonskillman.statemachinecallback",
   "displayName": "State Machine Callback",
   "version": "1.0.0",
-  "unity": "2018.1",
+  "unity": "2020.1",
   "description": "Adds a start and end callback to a state in the animator.",
   "keywords": [
     "tools",
@@ -16,9 +16,12 @@
   },
   "samples": [
     {
-      "displayName": "Event Sample",
-      "description": "Shows how to implement an event with scriptable objects.",
-      "path": "Samples~/EventSample"
+      "displayName": "Callback Sample",
+      "description": "Shows how to implement a callback to an animator.",
+      "path": "Samples~/CallbackSample"
     }
-  ]
+  ],
+  "dependencies": {
+    "com.unity.textmeshpro": "2.0.1"
+  }
 }
