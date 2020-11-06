@@ -1,0 +1,24 @@
+﻿using System;
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+using UnityEngine.Events;
+
+namespace StateMachine.Callback {
+	public class StateMachineEvent : StateMachineBehaviour {
+
+		private IStateMachineCallback stateMachineCallback;
+
+		public override void OnStateEnter(Animator animator, AnimatorStateInfo stateInfo, int layerIndex) {
+			if(stateMachineCallback == null)
+				stateMachineCallback = animator.GetComponent<IStateMachineCallback>();
+			
+			stateMachineCallback?.OnAnimationStart(stateInfo, layerIndex);
+		}
+
+		public override void OnStateExit(Animator animator, AnimatorStateInfo stateInfo, int layerIndex) {
+			stateMachineCallback?.OnAnimationEnd(stateInfo, layerIndex);
+		}
+		
+	}
+}
