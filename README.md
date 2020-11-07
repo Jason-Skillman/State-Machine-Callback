@@ -2,8 +2,9 @@
 Adds a start and end callback to a state in the animator. Can be used to track when an animation state has started and ended.
 
 ## How to install
+This package can be installed through the Unity `Package Manager`
 
-Open up the Unity package manager and click on `Add package from git URL...`.
+Open up the package manager `Window/Package Manager` and click on `Add package from git URL...`.
 
 ![unity_package_manager_git_drop_down](https://i.imgur.com/wRDQU8Z.png)
 
