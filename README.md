@@ -1,5 +1,5 @@
 # State-Machine-Callback
-Adds a start and end callback to a state in the animator. Can be used to track when a animation state has started and ended.
+Adds a start and end callback to a state in the animator. Can be used to track when an animation state has started and ended.
 
 ## How to install
 
