@@ -1,7 +1,7 @@
 {
   "name": "com.jasonskillman.statemachinecallback",
   "displayName": "State Machine Callback",
-  "version": "1.1.0",
+  "version": "1.1.1",
   "unity": "2020.1",
   "description": "Adds a start and end callback to a state in the animator.",
   "keywords": [

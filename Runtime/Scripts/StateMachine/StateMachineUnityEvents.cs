@@ -6,17 +6,17 @@ namespace StateMachine.Callback {
 	public class StateMachineUnityEvents : MonoBehaviour, IStateMachineCallback {
 
 		[SerializeField]
-		private string filter;
+		private string filter = default;
 		[SerializeField]
-		private int layerIndex;
+		private int layerIndex = default;
 
 		[SerializeField, Space]
-		private UnityEvent onAnimationStart;
+		private UnityEvent onAnimationStart = default;
 		[SerializeField]
-		private UnityEvent onAnimationUpdate;
+		private UnityEvent onAnimationUpdate = default;
 		[SerializeField]
-		private UnityEvent onAnimationEnd;
-		
+		private UnityEvent onAnimationEnd = default;
+
 		public void OnAnimationStart(AnimatorStateInfo stateInfo, int layerIndex) {
 			if(filter.Equals(string.Empty) || stateInfo.IsName(filter) && this.layerIndex == layerIndex) {
 				onAnimationStart?.Invoke();
@@ -34,6 +34,6 @@ namespace StateMachine.Callback {
 				onAnimationEnd?.Invoke();
 			}
 		}
-		
+
 	}
 }
