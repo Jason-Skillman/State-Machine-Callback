@@ -7,7 +7,7 @@ using UnityEngine;
 public class Driver : MonoBehaviour, IStateMachineCallback {
 
 	[SerializeField]
-	private Material matOff, matOn;
+	private Material matOff = default, matOn = default;
 
 	private Animator animator;
 	private MeshRenderer meshRenderer;

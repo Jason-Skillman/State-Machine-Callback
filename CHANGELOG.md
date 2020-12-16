@@ -1,5 +1,8 @@
 # State Machine Callback Changelog
 
+## [1.2.0] - 12/16/2020
+- Updated compatibility version.
+
 ## [1.1.1] - 12/10/2020
 - Fixed default value warning.
 

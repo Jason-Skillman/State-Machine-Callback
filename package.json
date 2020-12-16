@@ -1,14 +1,13 @@
 {
   "name": "com.jasonskillman.statemachinecallback",
   "displayName": "State Machine Callback",
-  "version": "1.1.1",
-  "unity": "2020.1",
+  "version": "1.2.0",
   "description": "Adds a start and end callback to a state in the animator.",
   "keywords": [
-    "tools",
-    "animator"
+	"animator",
+	"animation"
   ],
-  "category": "Debug Tool",
+  "category": "Animation",
   "author": {
     "name": "Jason Skillman",
     "email": "jason_skillman@outlook.com",
@@ -20,8 +19,5 @@
       "description": "Shows how to implement a callback to an animator.",
       "path": "Samples~/CallbackSample"
     }
-  ],
-  "dependencies": {
-    "com.unity.textmeshpro": "2.0.0"
-  }
+  ]
 }

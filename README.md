@@ -2,7 +2,7 @@
 Adds a start and end callback to a state in the animator. Can be used to track when an animation state has started and ended.
 
 ## How to install
-This package can be installed through the Unity `Package Manager`
+This package can be installed through the Unity `Package Manager` with Unity version 2019.3 or greater.
 
 Open up the package manager `Window/Package Manager` and click on `Add package from git URL...`.
 
@@ -15,6 +15,15 @@ Paste in this repository's url.
 ![unity_package_manager_git_with_url](Documentation~/images/unity_package_manager_git_with_url.png)
 
 Click `Add` and the package will be installed in your project.
+
+---
+**NOTE:** Unity 2019.2 or lower
+
+Other ways to install the package
+1. To install the package in an earler version of Unity you can clone this git into your project's `Packages` folder.
+1. Another alternative would be to download the package and in the `Package Manager` click on `Add package from disk...` and select the package's root folder.
+
+---
 
 ## How to setup
 First click on the animation state in your animator. Click `Add Behavior` and search for the `StateMachineEvent` component. This component will catch events from `StateMachineBehaviour` and send it through the `IStateMachineCallback` interface.
