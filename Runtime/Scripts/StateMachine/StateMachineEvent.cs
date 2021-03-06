@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-namespace StateMachine.Callback {
+namespace StateMachine {
 	public class StateMachineEvent : StateMachineBehaviour {
 
 		private IStateMachineCallback stateMachineCallback;

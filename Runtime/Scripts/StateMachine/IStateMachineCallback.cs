@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-namespace StateMachine.Callback {
+namespace StateMachine {
 	public interface IStateMachineCallback {
 		/// <summary>
 		/// Called once when the animation state starts.

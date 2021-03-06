@@ -1,5 +1,8 @@
 # State Machine Callback Changelog
 
+## [1.2.1] - 03/05/2021
+- Updated namespace.
+
 ## [1.2.0] - 12/16/2020
 - Updated compatibility version.
 

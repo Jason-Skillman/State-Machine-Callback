@@ -2,7 +2,7 @@
 using UnityEngine;
 using UnityEngine.Events;
 
-namespace StateMachine.Callback {
+namespace StateMachine {
 	public class StateMachineUnityEvents : MonoBehaviour, IStateMachineCallback {
 
 		[SerializeField]

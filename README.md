@@ -25,6 +25,13 @@ If you are using Unity 2019.2 or lower than you will not be able to install the 
 
 ---
 
+### Git submodule
+Alternatively you can also install this package as a git submodule.
+
+```console
+$ git submodule add https://github.com/Jason-Skillman/State-Machine-Callback.git Packages/State-Machine-Callback
+```
+
 ## How to setup
 First click on the animation state in your animator. Click `Add Behavior` and search for the `StateMachineEvent` component. This component will catch events from `StateMachineBehaviour` and send it through the `IStateMachineCallback` interface.
 
