@@ -87,7 +87,7 @@ namespace StateMachineEditor {
 		private float GetElementHeight(int index) {
 			SerializedProperty element = reorderableList.serializedProperty.GetArrayElementAtIndex(index);
 			
-			//float cardHeight = EditorGUIUtility.singleLineHeight * 3 + 4;
+			float cardHeight = EditorGUIUtility.singleLineHeight * 2 + 11;
 			float unityEventHeight = EditorGUIUtility.singleLineHeight * 3 + 4 + 42;
 
 			const float propertyAmount = 2;
@@ -96,16 +96,23 @@ namespace StateMachineEditor {
 			const float unityEventAmount = 1;
 			float unityEventBaseHeight = unityEventAmount * unityEventHeight;
 			
-			//Default value when no cards exist
-			/*float extraInnerHeight = 20;
-			//Find the amount of cards and get the final height value
-			if(dictionaryInnerList.ContainsKey(element.propertyPath))
-				if(dictionaryInnerList[element.propertyPath].count > 0)
-					extraInnerHeight = dictionaryInnerList[element.propertyPath].count * cardHeight;*/
+			
+			//Get the element's parent property
+			SerializedProperty parentProperty = element.FindPropertyRelative("onAnimationStart");
+			
+			object parentObj = GetParent(parentProperty);
+			object obj = GetValue(parentObj, "onAnimationStart");
+			UnityEvent unityEvent = obj as UnityEvent;
+
+			int eventCount = unityEvent.GetPersistentEventCount();
+			float height = 0.0f;
+			if(eventCount >= 2) {
+				height = cardHeight * (eventCount - 1);
+			}
+			
 			
 			//propertyHeight + unityEvent base height + unityEvent extra height
-			return propertyHeight + unityEventBaseHeight;
-			//return cardHeight + propertyAmount + unityEventBaseHeight;
+			return propertyHeight + unityEventBaseHeight + height;
 		}
 		
 		
