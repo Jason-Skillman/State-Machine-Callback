@@ -1,9 +1,27 @@
 ﻿using System;
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
 
 namespace StateMachine {
-	public class StateMachineUnityEvents : MonoBehaviour, IStateMachineCallback {
+	public class StateMachineCallback : MonoBehaviour, IStateMachineCallback {
+
+		[Serializable]
+		public struct Group {
+			public List<Card> cards;
+		}
+
+		[Serializable]
+		public struct Card {
+			public string filter;
+			public int layerIndex;
+			
+			public UnityEvent onAnimationStart;
+			public UnityEvent onAnimationUpdate;
+			public UnityEvent onAnimationEnd;
+		}
+
+		public Group group;
 
 		[SerializeField]
 		private string filter = default;
