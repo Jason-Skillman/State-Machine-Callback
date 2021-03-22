@@ -85,10 +85,17 @@ namespace StateMachineEditor {
 		}
 
 		private float GetElementHeight(int index) {
-			//SerializedProperty element = reorderableList.serializedProperty.GetArrayElementAtIndex(index);
+			SerializedProperty element = reorderableList.serializedProperty.GetArrayElementAtIndex(index);
 			
-			//The height of one card
-			float cardHeight = EditorGUIUtility.singleLineHeight * 3 + 4;
+			//float cardHeight = EditorGUIUtility.singleLineHeight * 3 + 4;
+			float unityEventHeight = EditorGUIUtility.singleLineHeight * 3 + 4 + 42;
+
+			const float propertyAmount = 2;
+			float propertyHeight = singleLineHeightWithMargin * propertyAmount + 6;
+
+			const float unityEventAmount = 1;
+			float unityEventBaseHeight = unityEventAmount * unityEventHeight;
+			
 			//Default value when no cards exist
 			/*float extraInnerHeight = 20;
 			//Find the amount of cards and get the final height value
@@ -96,7 +103,9 @@ namespace StateMachineEditor {
 				if(dictionaryInnerList[element.propertyPath].count > 0)
 					extraInnerHeight = dictionaryInnerList[element.propertyPath].count * cardHeight;*/
 			
-			return EditorGUIUtility.singleLineHeight * 10;
+			//propertyHeight + unityEvent base height + unityEvent extra height
+			return propertyHeight + unityEventBaseHeight;
+			//return cardHeight + propertyAmount + unityEventBaseHeight;
 		}
 		
 		
