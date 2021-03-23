@@ -17,6 +17,15 @@ namespace StateMachineEditor {
 		private SerializedProperty dialogueGroupProperty;
 		private ReorderableList reorderableList;
 		
+		/// <summary>
+		/// The height of an empty UnityEvent.
+		/// </summary>
+		private float UnityEventHeight => EditorGUIUtility.singleLineHeight * 3 + 4 + 42;
+		/// <summary>
+		/// The height of a single card in a UnityEvent.
+		/// </summary>
+		private float CardHeight => EditorGUIUtility.singleLineHeight * 2 + 11;
+		
 		public void OnEnable() {
 			dialogueGroupProperty = serializedObject.FindProperty("group");
 
@@ -64,62 +73,65 @@ namespace StateMachineEditor {
 				EditorGUI.PropertyField(currentRect, element.FindPropertyRelative("onAnimationStart"));
 			}
 			
-			//Todo: Add 2 other unityevents
-
+			//Draw onAnimationUpdate
+			{
+				SerializedProperty parentProperty = element.FindPropertyRelative("onAnimationStart");
+				object parentObj = GetParent(parentProperty);
 			
+				object objAnimStart = GetValue(parentObj, "onAnimationStart");
+				UnityEvent unityEventAnimStart = objAnimStart as UnityEvent;
+				int eventCountAnimStart = unityEventAnimStart.GetPersistentEventCount();
+				
+				float extraEventHeight = CardHeight * (Math.Max(1, eventCountAnimStart) - 1);
+				
+				currentRect.y += UnityEventHeight + extraEventHeight;
+				EditorGUI.PropertyField(currentRect, element.FindPropertyRelative("onAnimationUpdate"));
+			}
 			
-			/*SerializedProperty property = element.FindPropertyRelative("onAnimationStart");
-			EditorGUI.PropertyField(currentRect, property );*/
-			
-			/*EditorGUI.PropertyField(new Rect(rect.x, rect.y + 40, width, EditorGUIUtility.singleLineHeight),
-				element.FindPropertyRelative("onAnimationStart"));*/
-			
-			
-			
-			
-			/*object o = GetParent(property);
-			object o2 = GetValue(o, "onAnimationStart");
-			UnityEvent unityEvent = o2 as UnityEvent;
-
-			EditorGUILayout.LabelField("Log: " + unityEvent.GetPersistentEventCount());*/
+			//Todo: Add other unityevents
 		}
 
 		private float GetElementHeight(int index) {
 			SerializedProperty element = reorderableList.serializedProperty.GetArrayElementAtIndex(index);
 			
-			float cardHeight = EditorGUIUtility.singleLineHeight * 2 + 11;
-			float unityEventHeight = EditorGUIUtility.singleLineHeight * 3 + 4 + 42;
-
 			const float propertyAmount = 2;
 			float propertyHeight = singleLineHeightWithMargin * propertyAmount + 6;
 
-			const float unityEventAmount = 1;
-			float unityEventBaseHeight = unityEventAmount * unityEventHeight;
+			const float unityEventAmount = 2;
+			float unityEventBaseHeight = unityEventAmount * UnityEventHeight;
 			
 			
 			//Get the element's parent property
 			SerializedProperty parentProperty = element.FindPropertyRelative("onAnimationStart");
-			
 			object parentObj = GetParent(parentProperty);
-			object obj = GetValue(parentObj, "onAnimationStart");
-			UnityEvent unityEvent = obj as UnityEvent;
-
-			int eventCount = unityEvent.GetPersistentEventCount();
-			float height = 0.0f;
-			if(eventCount >= 2) {
-				height = cardHeight * (eventCount - 1);
-			}
+			
+			object objAnimStart = GetValue(parentObj, "onAnimationStart");
+			UnityEvent unityEventAnimStart = objAnimStart as UnityEvent;
+			int eventCountAnimStart = unityEventAnimStart.GetPersistentEventCount();
+			
+			object objAnimUpdate = GetValue(parentObj, "onAnimationUpdate");
+			UnityEvent unityEventAnimUpdate = objAnimUpdate as UnityEvent;
+			int eventCountAnimUpdate = unityEventAnimUpdate.GetPersistentEventCount();
+			
+			object objAnimEnd = GetValue(parentObj, "onAnimationUpdate");
+			UnityEvent unityEventAnimEnd = objAnimEnd as UnityEvent;
+			int eventCountAnimEnd = unityEventAnimEnd.GetPersistentEventCount();
+			
+			
+			float extraEventHeight;
+			extraEventHeight = CardHeight * (Math.Max(1, eventCountAnimStart) - 1);
+			extraEventHeight += CardHeight * (Math.Max(1, eventCountAnimUpdate) - 1);
 			
 			
 			//propertyHeight + unityEvent base height + unityEvent extra height
-			return propertyHeight + unityEventBaseHeight + height;
+			return propertyHeight + unityEventBaseHeight + extraEventHeight;
 		}
 		
 		
 		
 		
 		
-		
+		//Todo: Move
 		public object GetParent(SerializedProperty prop)
 		{
 			var path = prop.propertyPath.Replace(".Array.data[", "[");
