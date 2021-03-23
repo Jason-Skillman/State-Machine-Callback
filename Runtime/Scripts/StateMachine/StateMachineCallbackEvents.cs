@@ -8,16 +8,16 @@ namespace StateMachine {
 
 		[Serializable]
 		private struct Rule {
-			public string animationStateName = default;
-			public int layerIndex = default;
+			public string animationStateName;
+			public int layerIndex;
 			
-			public UnityEvent onAnimationStart = default;
-			public UnityEvent onAnimationUpdate = default;
-			public UnityEvent onAnimationEnd = default;
+			public UnityEvent onAnimationStart;
+			public UnityEvent onAnimationUpdate;
+			public UnityEvent onAnimationEnd;
 		}
 
 		[SerializeField]
-		private List<Rule> rulesList;
+		private List<Rule> rulesList = default;
 
 		public void OnAnimationStart(AnimatorStateInfo stateInfo, int layerIndex) {
 			foreach(Rule rule in rulesList) {
