@@ -13,6 +13,17 @@ namespace StateMachineEditor {
 	public class StateMachineCallbackEditor : Editor {
 
 		private const float singleLineHeightWithMargin = 20.0f;
+		
+		/// <summary>
+		/// The total amount of properties that exist.
+		/// <para>Used to correctly calculate the height.</para>
+		/// </summary>
+		private const float propertyAmount = 2;
+		/// <summary>
+		/// The total amount of UnityEvents that exist.
+		/// <para>Used to correctly calculate the height.</para>
+		/// </summary>
+		private const float unityEventAmount = 3;
 
 		private SerializedProperty dialogueGroupProperty;
 		private ReorderableList reorderableList;
@@ -75,110 +86,92 @@ namespace StateMachineEditor {
 			
 			//Draw onAnimationUpdate
 			{
-				SerializedProperty parentProperty = element.FindPropertyRelative("onAnimationStart");
-				object parentObj = GetParent(parentProperty);
-			
-				object objAnimStart = GetValue(parentObj, "onAnimationStart");
-				UnityEvent unityEventAnimStart = objAnimStart as UnityEvent;
-				int eventCountAnimStart = unityEventAnimStart.GetPersistentEventCount();
-				
-				float extraEventHeight = CardHeight * (Math.Max(1, eventCountAnimStart) - 1);
+				int previousEventCount = GetEventCount(element, "onAnimationStart");
+				float extraEventHeight = CardHeight * (Math.Max(1, previousEventCount) - 1);
 				
 				currentRect.y += UnityEventHeight + extraEventHeight;
 				EditorGUI.PropertyField(currentRect, element.FindPropertyRelative("onAnimationUpdate"));
 			}
 			
-			//Todo: Add other unityevents
+			//Draw onAnimationEnd
+			{
+				int previousEventCount = GetEventCount(element, "onAnimationUpdate");
+				float extraEventHeight = CardHeight * (Math.Max(1, previousEventCount) - 1);
+				
+				currentRect.y += UnityEventHeight + extraEventHeight;
+				EditorGUI.PropertyField(currentRect, element.FindPropertyRelative("onAnimationEnd"));
+			}
 		}
 
 		private float GetElementHeight(int index) {
 			SerializedProperty element = reorderableList.serializedProperty.GetArrayElementAtIndex(index);
 			
-			const float propertyAmount = 2;
+			//Add up all of the properties
 			float propertyHeight = singleLineHeightWithMargin * propertyAmount + 6;
 
-			const float unityEventAmount = 2;
+			//Add up all of the UnityEvents
 			float unityEventBaseHeight = unityEventAmount * UnityEventHeight;
 			
+			//Add up all of the UnityEvent's extra event cards
+			float extraEventHeight = CardHeight * (Math.Max(1, GetEventCount(element, "onAnimationStart")) - 1);
+			extraEventHeight += CardHeight * (Math.Max(1, GetEventCount(element, "onAnimationUpdate")) - 1);
+			extraEventHeight += CardHeight * (Math.Max(1, GetEventCount(element, "onAnimationEnd")) - 1);
 			
-			//Get the element's parent property
-			SerializedProperty parentProperty = element.FindPropertyRelative("onAnimationStart");
-			object parentObj = GetParent(parentProperty);
-			
-			object objAnimStart = GetValue(parentObj, "onAnimationStart");
-			UnityEvent unityEventAnimStart = objAnimStart as UnityEvent;
-			int eventCountAnimStart = unityEventAnimStart.GetPersistentEventCount();
-			
-			object objAnimUpdate = GetValue(parentObj, "onAnimationUpdate");
-			UnityEvent unityEventAnimUpdate = objAnimUpdate as UnityEvent;
-			int eventCountAnimUpdate = unityEventAnimUpdate.GetPersistentEventCount();
-			
-			object objAnimEnd = GetValue(parentObj, "onAnimationUpdate");
-			UnityEvent unityEventAnimEnd = objAnimEnd as UnityEvent;
-			int eventCountAnimEnd = unityEventAnimEnd.GetPersistentEventCount();
-			
-			
-			float extraEventHeight;
-			extraEventHeight = CardHeight * (Math.Max(1, eventCountAnimStart) - 1);
-			extraEventHeight += CardHeight * (Math.Max(1, eventCountAnimUpdate) - 1);
-			
-			
-			//propertyHeight + unityEvent base height + unityEvent extra height
 			return propertyHeight + unityEventBaseHeight + extraEventHeight;
 		}
-		
-		
-		
-		
-		
-		//Todo: Move
-		public object GetParent(SerializedProperty prop)
-		{
-			var path = prop.propertyPath.Replace(".Array.data[", "[");
-			object obj = prop.serializedObject.targetObject;
-			var elements = path.Split('.');
-			foreach(var element in elements.Take(elements.Length-1))
-			{
-				if(element.Contains("["))
-				{
-					var elementName = element.Substring(0, element.IndexOf("["));
-					var index = Convert.ToInt32(element.Substring(element.IndexOf("[")).Replace("[","").Replace("]",""));
-					obj = GetValue(obj, elementName, index);
-				}
-				else
-				{
-					obj = GetValue(obj, element);
-				}
-			}
-			return obj;
-		}
- 
-		public object GetValue(object source, string name)
-		{
-			if(source == null)
-				return null;
-			var type = source.GetType();
-			var f = type.GetField(name, BindingFlags.NonPublic | BindingFlags.Public | BindingFlags.Instance);
-			if(f == null)
-			{
-				var p = type.GetProperty(name, BindingFlags.NonPublic | BindingFlags.Public | BindingFlags.Instance | BindingFlags.IgnoreCase);
-				if(p == null)
-					return null;
-				return p.GetValue(source, null);
-			}
-			return f.GetValue(source);
-		}
- 
-		public object GetValue(object source, string name, int index)
-		{
-			var enumerable = GetValue(source, name) as IEnumerable;
-			var enm = enumerable.GetEnumerator();
-			while(index-- >= 0)
-				enm.MoveNext();
-			return enm.Current;
-		}
 
+		#region HelperMethods
+
+		private int GetEventCount(SerializedProperty element, string propertyName) {
+        	SerializedProperty parentProperty = element.FindPropertyRelative(propertyName);
+        	object parentObj = GetParent(parentProperty);
+        	
+        	object objAnimStart = GetValue(parentObj, propertyName);
+        	UnityEvent unityEventAnimStart = objAnimStart as UnityEvent;
+        	return unityEventAnimStart.GetPersistentEventCount();
+        }
+
+        private object GetParent(SerializedProperty prop) {
+        	var path = prop.propertyPath.Replace(".Array.data[", "[");
+        	object obj = prop.serializedObject.targetObject;
+        	var elements = path.Split('.');
+        	foreach(var element in elements.Take(elements.Length - 1)) {
+        		if(element.Contains("[")) {
+        			var elementName = element.Substring(0, element.IndexOf("["));
+        			var index = Convert.ToInt32(element.Substring(element.IndexOf("[")).Replace("[", "").Replace("]", ""));
+        			obj = GetValue(obj, elementName, index);
+        		} else {
+        			obj = GetValue(obj, element);
+        		}
+        	}
+
+        	return obj;
+        }
+
+        private object GetValue(object source, string valueName) {
+        	if(source == null)
+        		return null;
+        	var type = source.GetType();
+        	var f = type.GetField(valueName, BindingFlags.NonPublic | BindingFlags.Public | BindingFlags.Instance);
+        	if(f == null) {
+        		var p = type.GetProperty(valueName, BindingFlags.NonPublic | BindingFlags.Public | BindingFlags.Instance | BindingFlags.IgnoreCase);
+        		if(p == null)
+        			return null;
+        		return p.GetValue(source, null);
+        	}
+
+        	return f.GetValue(source);
+        }
+
+        private object GetValue(object source, string valueName, int index) {
+        	var enumerable = GetValue(source, valueName) as IEnumerable;
+        	var enm = enumerable.GetEnumerator();
+        	while(index-- >= 0)
+        		enm.MoveNext();
+        	return enm.Current;
+        }
+
+		#endregion
+		
 	}
 }
-
-//float width = EditorGUIUtility.currentViewWidth - EditorGUIUtility.fieldWidth - 12;
