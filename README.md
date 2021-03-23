@@ -55,6 +55,15 @@ public void OnAnimationStart(AnimatorStateInfo stateInfo, int layerIndex) {
 }
 ```
 
+## StateMachineCallbackEvents
+If you don't want to make a custom script to handle all of the different kinds of animation events then you can use the `StateMachineCallbackEvents` component. This component has already setup the animation events and converted them into `UnityEvents` for quick access. Just attach this script to the game object with an animator.
+
+## StateMachineCallbackEvents API
+|Member|Description|
+|---|---|
+|`animationStateName`|The name of the animation state.|
+|`layerIndex`|The layer index of the animation state.|
+
 ## IStateMachineCallback API
 |Method Name|Parameters|Description|
 |---|---|---|
