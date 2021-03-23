@@ -14,6 +14,14 @@ namespace StateMachine {
 			public UnityEvent onAnimationStart;
 			public UnityEvent onAnimationUpdate;
 			public UnityEvent onAnimationEnd;
+
+			public Rule(int _) {
+				animationStateName = null;
+				layerIndex = 0;
+				onAnimationStart = null;
+				onAnimationUpdate = null;
+				onAnimationEnd = null;
+			}
 		}
 
 		[SerializeField]
