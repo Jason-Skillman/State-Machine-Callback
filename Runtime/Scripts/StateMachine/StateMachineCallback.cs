@@ -7,12 +7,7 @@ namespace StateMachine {
 	public class StateMachineCallback : MonoBehaviour, IStateMachineCallback {
 
 		[Serializable]
-		public struct Group {
-			public List<Card> cards;
-		}
-
-		[Serializable]
-		public struct Card {
+		private struct Rule {
 			public string filter;
 			public int layerIndex;
 			
@@ -21,36 +16,25 @@ namespace StateMachine {
 			public UnityEvent onAnimationEnd;
 		}
 
-		public Group group;
-
 		[SerializeField]
-		private string filter = default;
-		[SerializeField]
-		private int layerIndex = default;
-
-		[SerializeField, Space]
-		private UnityEvent onAnimationStart = default;
-		[SerializeField]
-		private UnityEvent onAnimationUpdate = default;
-		[SerializeField]
-		private UnityEvent onAnimationEnd = default;
+		private List<Rule> rulesList;
 
 		public void OnAnimationStart(AnimatorStateInfo stateInfo, int layerIndex) {
-			if(filter.Equals(string.Empty) || stateInfo.IsName(filter) && this.layerIndex == layerIndex) {
+			/*if(filter.Equals(string.Empty) || stateInfo.IsName(filter) && this.layerIndex == layerIndex) {
 				onAnimationStart?.Invoke();
-			}
+			}*/
 		}
 
 		public void OnAnimationUpdate(AnimatorStateInfo stateInfo, int layerIndex) {
-			if(filter.Equals(string.Empty) || stateInfo.IsName(filter) && this.layerIndex == layerIndex) {
+			/*if(filter.Equals(string.Empty) || stateInfo.IsName(filter) && this.layerIndex == layerIndex) {
 				onAnimationUpdate?.Invoke();
-			}
+			}*/
 		}
 
 		public void OnAnimationEnd(AnimatorStateInfo stateInfo, int layerIndex) {
-			if(filter.Equals(string.Empty) || stateInfo.IsName(filter) && this.layerIndex == layerIndex) {
+			/*if(filter.Equals(string.Empty) || stateInfo.IsName(filter) && this.layerIndex == layerIndex) {
 				onAnimationEnd?.Invoke();
-			}
+			}*/
 		}
 
 	}

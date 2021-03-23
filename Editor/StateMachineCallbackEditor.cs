@@ -25,7 +25,6 @@ namespace StateMachineEditor {
 		/// </summary>
 		private const float unityEventAmount = 3;
 
-		private SerializedProperty dialogueGroupProperty;
 		private ReorderableList reorderableList;
 		
 		/// <summary>
@@ -38,10 +37,9 @@ namespace StateMachineEditor {
 		private float CardHeight => EditorGUIUtility.singleLineHeight * 2 + 11;
 		
 		public void OnEnable() {
-			dialogueGroupProperty = serializedObject.FindProperty("group");
+			SerializedProperty rulesListProperty = serializedObject.FindProperty("rulesList");
 
-			reorderableList = new ReorderableList(serializedObject,
-				dialogueGroupProperty.FindPropertyRelative("cards"),
+			reorderableList = new ReorderableList(serializedObject, rulesListProperty,
 				true, true, true, true);
 			reorderableList.drawHeaderCallback += OnDrawHeader;
 			reorderableList.drawElementCallback += OnDrawElement;
