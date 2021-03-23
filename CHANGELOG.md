@@ -1,5 +1,8 @@
 # State Machine Callback Changelog
 
+## [1.3.1] - 03/23/2021
+- Fixed warnings.
+
 ## [1.3.0] - 03/23/2021
 - Callback events has custom editor supporting multible animation rules.
 - Major refactoring.

@@ -8,12 +8,12 @@ namespace StateMachine {
 
 		[Serializable]
 		private struct Rule {
-			public string animationStateName;
-			public int layerIndex;
+			public string animationStateName = default;
+			public int layerIndex = default;
 			
-			public UnityEvent onAnimationStart;
-			public UnityEvent onAnimationUpdate;
-			public UnityEvent onAnimationEnd;
+			public UnityEvent onAnimationStart = default;
+			public UnityEvent onAnimationUpdate = default;
+			public UnityEvent onAnimationEnd = default;
 		}
 
 		[SerializeField]
