@@ -9,8 +9,8 @@ using UnityEngine;
 using UnityEngine.Events;
 
 namespace StateMachineEditor {
-	[CustomEditor(typeof(StateMachineCallback))]
-	public class StateMachineCallbackEditor : Editor {
+	[CustomEditor(typeof(StateMachineCallbackEvents))]
+	public class StateMachineCallbackEventsEditor : Editor {
 
 		private const float singleLineHeightWithMargin = 20.0f;
 		
@@ -55,7 +55,7 @@ namespace StateMachineEditor {
 		}
 
 		private void OnDrawHeader(Rect rect) {
-			EditorGUI.LabelField(rect, "State Machine Callback");
+			EditorGUI.LabelField(rect, "State Machine Callback Events");
 		}
 		
 		private void OnDrawElement(Rect rect, int index, bool isActive, bool isFocused) {
@@ -67,7 +67,7 @@ namespace StateMachineEditor {
 			
 			//Draw filter
 			{
-				EditorGUI.PropertyField(currentRect, element.FindPropertyRelative("filter"));
+				EditorGUI.PropertyField(currentRect, element.FindPropertyRelative("animationStateName"));
 			}
 			
 			//Draw layerIndex
