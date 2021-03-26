@@ -1,5 +1,8 @@
 # State Machine Callback Changelog
 
+## [1.3.2] - 03/26/2021
+- Updated sample project.
+
 ## [1.3.1] - 03/23/2021
 - Fixed warnings.
 
