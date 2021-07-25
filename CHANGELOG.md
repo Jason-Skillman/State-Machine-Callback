@@ -1,5 +1,8 @@
 # State Machine Callback Changelog
 
+## [1.3.4] - 07/24/2021
+- Updated assembly definition names.
+
 ## [1.3.2] - 03/26/2021
 - Updated sample project.
 
