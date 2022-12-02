@@ -1,14 +1,13 @@
-using System;
-using System.Collections;
-using System.Linq;
-using System.Reflection;
-using StateMachine;
-using UnityEditor;
-using UnityEditorInternal;
-using UnityEngine;
-using UnityEngine.Events;
-
-namespace StateMachineEditor {
+namespace JasonSkillman.StateMachine.Editor {
+	using System;
+	using System.Collections;
+	using System.Linq;
+	using System.Reflection;
+	using UnityEditor;
+	using UnityEditorInternal;
+	using UnityEngine;
+	using UnityEngine.Events;
+	
 	[CustomEditor(typeof(StateMachineCallbackEvents))]
 	public class StateMachineCallbackEventsEditor : Editor {
 

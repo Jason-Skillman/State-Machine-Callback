@@ -1,6 +1,6 @@
-﻿using UnityEngine;
-
-namespace StateMachine {
+﻿namespace JasonSkillman.StateMachine {
+	using UnityEngine;
+	
 	public interface IStateMachineCallback {
 		/// <summary>
 		/// Called once when the animation state starts.
