@@ -1,6 +1,6 @@
-﻿using UnityEngine;
-
-namespace StateMachine {
+﻿namespace JasonSkillman.StateMachine {
+	using UnityEngine;
+	
 	public class StateMachineEvent : StateMachineBehaviour {
 
 		private IStateMachineCallback stateMachineCallback;

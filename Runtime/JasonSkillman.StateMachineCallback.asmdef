@@ -1,5 +1,6 @@
 {
     "name": "JasonSkillman.StateMachineCallback",
+    "rootNamespace": "JasonSkillman.StateMachine",
     "references": [],
     "includePlatforms": [],
     "excludePlatforms": [],
